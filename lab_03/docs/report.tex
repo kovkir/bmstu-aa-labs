@@ -1,0 +1,603 @@
+\documentclass[a4paper,14pt, unknownkeysallowed]{extreport}
+
+
+
+
+\usepackage{cmap} % Улучшенный поиск русских слов в полученном pdf-файле
+\usepackage[T2A]{fontenc} % Поддержка русских букв
+\usepackage[utf8]{inputenc} % Кодировка utf8
+\usepackage[english,russian]{babel} % Языки: русский, английский
+\usepackage{enumitem}
+
+
+\usepackage{threeparttable}
+
+\usepackage[14pt]{extsizes}
+
+\usepackage{caption}
+\captionsetup{labelsep=endash}
+\captionsetup[figure]{name={Рисунок}}
+
+% \usepackage{ctable}
+% \captionsetup[table]{justification=raggedleft,singlelinecheck=off}
+
+\usepackage{amsmath}
+
+\usepackage{geometry}
+\geometry{left=30mm}
+\geometry{right=10mm}
+\geometry{top=20mm}
+\geometry{bottom=20mm}
+
+\usepackage{titlesec}
+\titleformat{\section}
+	{\normalsize\bfseries}
+	{\thesection}
+	{1em}{}
+\titlespacing*{\chapter}{0pt}{-30pt}{8pt}
+\titlespacing*{\section}{\parindent}{*4}{*4}
+\titlespacing*{\subsection}{\parindent}{*4}{*4}
+
+\usepackage{setspace}
+\onehalfspacing % Полуторный интервал
+
+\frenchspacing
+\usepackage{indentfirst} % Красная строка
+
+\usepackage{titlesec}
+\titleformat{\chapter}{\LARGE\bfseries}{\thechapter}{20pt}{\LARGE\bfseries}
+\titleformat{\section}{\Large\bfseries}{\thesection}{20pt}{\Large\bfseries}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Для листинга кода:
+\lstset{%
+	language=python,   					% выбор языка для подсветки	
+	basicstyle=\small\sffamily,			% размер и начертание шрифта для подсветки кода
+	numbers=left,						% где поставить нумерацию строк (слева\справа)
+	%numberstyle=,						% размер шрифта для номеров строк
+	stepnumber=1,						% размер шага между двумя номерами строк
+	numbersep=5pt,						% как далеко отстоят номера строк от подсвечиваемого кода
+	frame=single,						% рисовать рамку вокруг кода
+	tabsize=4,							% размер табуляции по умолчанию равен 4 пробелам
+	captionpos=t,						% позиция заголовка вверху [t] или внизу [b]
+	breaklines=true,					
+	breakatwhitespace=true,				% переносить строки только если есть пробел
+	escapeinside={\#*}{*)},				% если нужно добавить комментарии в коде
+	backgroundcolor=\color{white},
+}
+
+
+\usepackage{pgfplots}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\usepackage{graphicx}
+\newcommand{\img}[3] {
+	\begin{figure}[h!]
+		\center{\includegraphics[height=#1]{img/#2}}
+		\caption{#3}
+		\label{img:#2}
+	\end{figure}
+}
+
+
+\usepackage[justification=centering]{caption} % Настройка подписей float объектов
+
+\usepackage[unicode,pdftex]{hyperref} % Ссылки в pdf
+\hypersetup{hidelinks}
+
+\usepackage{csvsimple}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+
+
+
+
+\begin{document}
+
+
+\begin{titlepage}
+	\newgeometry{pdftex, left=2cm, right=2cm, top=2.5cm, bottom=2.5cm}
+	\fontsize{12pt}{12pt}\selectfont
+	\noindent \begin{minipage}{0.15\textwidth}
+		\includegraphics[width=\linewidth]{img/b_logo.jpg}
+	\end{minipage}
+	\noindent\begin{minipage}{0.9\textwidth}\centering
+		\textbf{Министерство науки и высшего образования Российской Федерации}\\
+		\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+		\textbf{«Московский государственный технический университет имени Н. Э.~Баумана}\\
+		\textbf{(национальный исследовательский университет)»}\\
+		\textbf{(МГТУ им. Н. Э.~Баумана)}
+	\end{minipage}
+	
+	\noindent\rule{18cm}{3pt}
+	\newline\newline
+	\noindent ФАКУЛЬТЕТ $\underline{\text{«Информатика и системы управления»~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$ \newline\newline
+	\noindent КАФЕДРА $\underline{\text{«Программное обеспечение ЭВМ и информационные технологии»~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline\newline\newline\newline\newline\newline
+	
+	
+	\begin{center}
+		\noindent\begin{minipage}{1.3\textwidth}\centering
+		\Large\textbf{   ~~~ Лабораторная работа №3}\newline
+		\textbf{по дисциплине "Анализ Алгоритмов"}\newline\newline\newline
+		\end{minipage}
+	\end{center}
+	
+	\noindent\textbf{Тема} 			$\underline{\text{Алгоритмы сортировки}}$\newline\newline
+	\noindent\textbf{Студент} 		$\underline{\text{Ковалец К. Э.}}$\newline\newline
+	\noindent\textbf{Группа} 		$\underline{\text{ИУ7-53Б}}$\newline\newline
+	\noindent\textbf{Преподаватель} $\underline{\text{Волкова Л. Л.}}$\newline
+	
+	\begin{center}
+		\vfill
+		Москва~---~\the\year
+		~г.
+	\end{center}
+	\restoregeometry
+\end{titlepage}
+
+
+
+\renewcommand{\contentsname}{Содержание} 
+\tableofcontents
+\setcounter{page}{2}
+
+
+
+
+\chapter*{Введение}
+\addcontentsline{toc}{chapter}{Введение}
+
+В данной лабораторной работе будут рассмотрены алгоритмы сортировки. Сортировкой называют процесс перегруппировки заданной последовательности (кортежа) объектов в некотором определенном порядке.
+Это одна из главных процудур обработки структурированных данных. Важнейшей характеристикой любого алгоритма сортировки является скорость его работы, время сортировки будет пропорционально количеству сравнений и перестановки элементов данных в процессе их сортировки.
+
+В данной лабораторной работе будут рассмотрены три алгоритма сортировки: пузырёк, вставка­ми и сортировка выбором. \newline
+
+\textbf{Цель работы:} изучение и реализация трёх алгоритмов сортировки, а так же исследование их трудоемкости. \newline
+
+\textbf{Задачи работы.}
+\begin{enumerate}
+	\item Изучить три алгоритма сортировки: пузырёк, вставками и выбором.
+    \item Реализовать эти алгоритмы.
+    \item Провести сравнительный анализ трудоемкости алгоритмов.
+    \item Провести сравнительный анализ реализаций алгоритмов по затраченному процессорному времени и памяти.
+	\item Описать и обосновать полученные результаты в отчете о выполненной лабораторной работе.
+\end{enumerate}
+
+
+
+
+
+
+
+\chapter{Аналитическая часть}
+В данном разделе мы рассмотрим три алгоритма сортировок: пузырёк, вставками и выбором.
+
+\section{Сортировка пузырьком}
+
+Алгоритм сортировки “пузырьком” состоит в повторении проходов по массиву с помощью вложенных циклов. При каждом проходе по массиву сравниваются между собой пары “соседних” элементов. Если элементы какой-то из сравниваемых пар расположены в неправильном порядке – происходит обмен (перезапись) значений ячеек массива. Проходы по массиву повторяются $N-1$ раз. [1]
+
+\section{Сортировка выбором}
+
+Алгоритм сортировки выбором заключается в поиске на необработанном срезе массива или списка минимального значения и в дальнейшем обмене этого значения с первым элементом необработанного среза. На следующем шаге необработанный срез уменьшается на один элемент. [2]
+
+Идея алгоритма поэтапно:
+\begin{itemize}
+    \item Найти наименьшее значение в списке.
+    \item Записать его в начало списка, а первый элемент - на место, где раньше стоял наименьший.
+    \item Снова найти наименьший элемент в списке. При этом в поиске не участвует первый элемент.
+    \item Второй минимум поместить на второе место списка. Второй элемент при этом перемещается на освободившееся место.
+    \item Продолжать выполнять поиcк и обмен, пока не будет достигнут конец списка.
+\end{itemize}
+
+
+\section{Сортировка вставками}
+
+Суть алгоритма заключается в следующем: есть часть массива, которая уже отсортирована, и требуется вставить остальные элементы массива в отсортированную часть, сохранив при этом упорядоченность. Для этого на каждом шаге алгоритма мы выбираем один из элементов входных данных и вставляем его на нужную позицию в уже отсортированной части массива, до тех пор пока весь набор входных данных не будет отсортирован. [3]
+
+\section{Вывод}
+
+В данной лабораторной работе стоит задача реализации трёх алгоритмов сортировки, а именно: пузырьком, вставками и выбором. Такжк требуется оценить теоретическую оценку алгоритмов и проверить ее экспериментально. Все три алгоритма сортировок были описаны в этом разделе.
+
+
+
+
+
+\chapter{Конструкторская часть}
+В данном разделе мы рассмотрим схемы алгоритмов сортировок (пузырьком, вставками и выбором), а также найдена их трудоемкость.
+
+\section{Разработка алгоритмов}
+На рисунках 2.1, 2.2 и 2.3 представлены схемы алгоритмов сортировки (пузырьком, выбором и вставками).
+
+\img{170mm}{bubble_sort_scheme.drawio.png}{Схема алгоритма сортировки пузырьком}
+\img{220mm}{select_sort_scheme.drawio.png}{Схема алгоритма сортировки выбором}
+\img{220mm}{insertion_sort_scheme.drawio.png}{Схема алгоритма сортировки вставками}
+
+\clearpage
+
+\section{Модель вычислений для проведения оценки трудоемкости}
+Введем модель вычислений, которая потребуется для определния трудоемкости каждого отдельно взятого алгоритма сортировки:
+
+\begin{enumerate}
+	\item операции из списка (\ref{for:operations}) имеют трудоемкость равную 1;
+	\begin{equation}
+		\label{for:operations}
+		+, -, /, *, \%, =, +=, -=, *=, /=, \%=, ==, !=, <, >, <=, >=, [], ++, {-}-
+	\end{equation}
+	\item трудоемкость оператора выбора \code{if условие then A else B} рассчитывается, как (\ref{for:if});
+	\begin{equation}
+		\label{for:if}
+		f_{if} = f_{\text{условия}} +
+		\begin{cases}
+			f_A, & \text{если условие выполняется,}\\
+			f_B, & \text{иначе.}
+		\end{cases}
+	\end{equation}
+	\item трудоемкость цикла рассчитывается, как (\ref{for:cycle});
+	\begin{equation}
+		\label{for:cycle}
+		f_{for} = f_{\text{инициализации}} + f_{\text{сравнения}} + N(f_{\text{тела}} + f_{\text{инкремент}} + f_{\text{сравнения}})
+	\end{equation}
+	\item трудоемкость вызова функции равна 0.
+\end{enumerate}
+
+
+$N$ - размер массивов во всех вычислениях. Лучшим случаем сортировки считается тот, когда массив уже отсортирован, худшим - когда отсортирован в обратном порядке.
+
+\subsection{Алгоритм сортировки пузырьком}
+
+Трудоёмкость в лучшем случае (при уже отсортированном массиве) (\ref{for:bubble_best}):
+\begin{equation}
+	\label{for:bubble_best}
+    f_{best} = 2 + 1 + N \cdot (1 + 1 + 1 + \frac{N - 1}{2} \cdot (1 + 1 + 4)) = 3N^2 + 3 = O(N^2).
+\end{equation}
+
+Трудоёмкость в худшем случае (при массиве, отсортированном в обратном порядке) (\ref{for:bubble_worst}):
+\begin{equation}
+	\label{for:bubble_worst}
+    f_{worst} = 2 + 1 + N \cdot (1 + 1 + 1 + \frac{N - 1}{2} \cdot (1 + 1 + 11)) = 6.5N^2 - 3.5N + 3 = O(N^2).
+\end{equation}
+
+
+
+\subsection{Алгоритм сортировки вставками}
+
+Трудоёмкость в лучшем случае (при уже отсортированном массиве) (\ref{for:insertion_best}):
+\begin{equation}
+	\label{for:insertion_best}
+    f_{best} = 1 + 1 + (N - 1) \cdot (2 + 2 + 1 + 4 + 2) = 11N - 9 = O(N).
+\end{equation}
+
+Трудоёмкость в худшем случае (при массиве, отсортированном в обратном порядке) (\ref{for:insertion_worst}):
+\begin{equation}
+	\label{for:insertion_worst}
+    f_{worst} = 1 + 1 + (N - 1) \cdot (2 + 2 + 1 + \frac{N}{2} \cdot 9 + 2) = 4.5N^2 + 2.5N - 5 = O(N^2).
+\end{equation}
+
+
+
+\subsection{Алгоритм сортировки выбором}
+
+Трудоемкость сортировки выбором:
+\begin{itemize}
+    \item В лучшем случае: O$(N^2)$.
+    \item В худшем случае: O$(N^2)$.
+\end{itemize}
+
+\section{Вывод}
+
+В данном разделе были рассмотрены схемы всех трёх алгоритмов сортировки (пузырьком, вставками и выбором). Также для каждого из них были рассчитаны и оценены лучшие и худшие случаи.
+
+
+
+
+
+\chapter{Технологическая часть}
+
+\section{Требования к программному обеспечению}
+
+\begin{itemize}
+    \item Входные данные - массив целых чисел;
+    \item Выходные данные - отсортированный массив в заданном порядке.
+\end{itemize}
+
+\section{Средства реализации}
+В данной работе для реализации был выбран язык программирования $Python$. Выбор обсуловлен наличием опыта работы с ним. Время работы было замерено с помощью функции \textit{process\_time} из библиотеки $time$.
+
+
+\section{Сведения о модулях программы}
+Программа состоит из следующих модулей:
+\begin{itemize}
+	\item $main.py$ - файл, содержащий функцию $main$;
+    \item $sorts.py$ - файл, содержащий код всех сортировок;
+    \item $test.py$ - файл, в котором содержатся функции для замера времени работы сортировок и построения графика;
+    \item $get\_array.py$ - файл, в котором содержатся функции для генерации массивов разных видов;
+    \item $input\_array.py$ - файл, в котором содержаться функции для ввода маассива;
+    \item $color.py$ - файл, который содержит переменные типа $string$ для цветного вывода результата работы программы в консоль.
+\end{itemize}
+
+
+\section{Листинги кода}
+
+В листингах \ref{lst:bubble_sort}, \ref{lst:select_sort}, \ref{lst:insertion_sort} представлены реализации алгоритмов сортировок (пузырьком, выбором и вставками).
+
+
+\begin{center}
+\captionsetup{justification=raggedright,singlelinecheck=off}
+\begin{lstlisting}[label=lst:bubble_sort,caption=Алгоритм сортировки пузырьком]
+def bubble_sort(arr, n):
+    n -= 1
+
+    for i in range(n):
+        for j in range(n - i):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+
+    return arr
+\end{lstlisting}
+\end{center}
+
+
+\begin{center}
+\captionsetup{justification=raggedright,singlelinecheck=off}
+\begin{lstlisting}[label=lst:select_sort,caption=Алгоритм сортировки выбором]
+def select_sort(arr, n):
+
+    for i in range(n - 1):
+        min_j = i
+
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_j]:
+                min_j = j
+
+        if min_j != i:
+            arr[i], arr[min_j] = arr[min_j], arr[i]
+
+    return arr
+\end{lstlisting}
+\end{center}
+
+\clearpage
+
+\begin{center}
+\captionsetup{justification=raggedright,singlelinecheck=off}
+\begin{lstlisting}[label=lst:insertion_sort,caption=Алгоритм сортировки вставками]
+def insertion_sort(arr, n):
+    
+    for i in range(1, n):
+        j = i - 1
+        tmp = arr[i]
+
+        while j >= 0 and arr[j] > tmp:
+            arr[j + 1] = arr[j]
+            j -= 1
+
+        arr[j + 1] = tmp
+
+    return arr
+\end{lstlisting}
+\end{center}
+
+\section{Функциональные тесты}
+
+В таблице \ref{tbl:functional_test} приведены тесты для функций, реализующих алгоритмы сортировки. Тесты для всех сортировок пройдены успешно.
+
+\begin{table}[h]
+	\begin{center}
+		\begin{threeparttable}
+		\captionsetup{justification=raggedleft,singlelinecheck=off}
+		\caption{\label{tbl:functional_test} Функциональные тесты}
+		\begin{tabular}{|c|c|c|}
+			\hline
+            Входной массив & Результат    		 & Правильность \\ 
+			\hline
+            [1 2 3 4 5 6]  & [1 2 3 4 5 6]		 & Верно        \\ 
+			\hline
+            [6 5 4 3 2 1]  & [1 2 3 4 5 6]		 & Верно        \\ 
+			\hline
+            [7 -3 8 -5 0]  & [-5 -3 0 7 8]		 & Верно        \\ 
+			\hline
+            [5 5 5]        & [5 5 5]       		 & Верно        \\ 
+			\hline
+            [9]            & [9]           		 & Верно        \\ 
+			\hline
+            []             & []            		 & Верно        \\ 
+			\hline
+			a              & Сообщение об ошибке & Верно        \\ 
+			\hline
+		\end{tabular}
+    \end{threeparttable}
+	\end{center}
+\end{table}
+
+\section{Вывод}
+
+В данном разделе были разработаны исходные коды трёх алгоритмов сортировки: пузырьком, выбором и вставками, а также проведено тестирование.
+
+
+
+
+
+\chapter{Исследовательская часть}
+
+\section{Технические характеристики}
+
+Технические характеристики устройства, на котором выполнялось тестирование представлены далее.
+
+\begin{itemize}
+    \item Операционная система: macOS 11.5.2.
+    \item Память: 8 GiB.
+    \item Процессор: 2,3 GHz 4‑ядерный процессор Intel Core i5.
+\end{itemize}
+
+При тестировании ноутбук был включен в сеть электропитания. Во время тестирования ноутбук был нагружен только встроенными приложениями окружения, а также системой тестирования.
+
+\section{Демонстрация работы программы}
+
+\img{180mm}{example}{Пример работы программы}
+\clearpage
+
+\section{Время выполнения алгоритмов}
+
+
+Результаты замеров времени работы алгоритмов сортировок (в мс) приведены в таблицах \ref{tbl:best}, \ref{tbl:worth} и \ref{tbl:random} Также на рисунках \ref{img:graph_sorted}, \ref{img:graph_sorted_back}, \ref{img:graph_random} приведены графики зависимостей времени работы алгоритмов сортировки от размеров массивов на отсортированных, обратно отсортированных и случайных данных.
+
+
+\begin{table}[h]
+	\begin{center}
+		\begin{threeparttable}
+		\captionsetup{justification=raggedleft,singlelinecheck=off}
+		\caption{Отсортированные данные}
+		\label{tbl:best}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			Размер & Пузырызьком & Выбором & Вставками \\
+			\hline
+			100    & 0.673  & 0.555  & 0.019 \\ 
+			\hline
+			200    & 1.829  & 1.412  & 0.029 \\ 
+			\hline
+			300    & 3.849  & 2.837  & 0.042 \\ 
+			\hline
+			400    & 5.965  & 5.137  & 0.056 \\ 
+			\hline
+			500    & 9.617  & 8.237  & 0.073 \\ 
+			\hline
+			600    & 14.066 & 11.806 & 0.092 \\ 
+			\hline
+			700    & 19.506 & 16.564 & 0.145 \\ 
+			\hline
+			800    & 25.934 & 21.103 & 0.121 \\ 
+			\hline
+			900    & 32.982 & 27.160 & 0.148 \\ 
+			\hline
+			1000   & 41.045 & 33.178 & 0.152 \\ 
+			\hline
+		\end{tabular}
+		\end{threeparttable}
+    \end{center}
+\end{table}
+
+
+\begin{table}[h]
+	\begin{center}
+		\begin{threeparttable}
+		\captionsetup{justification=raggedleft,singlelinecheck=off}
+		\caption{Отсортированные в обратном порядке данные}
+		\label{tbl:worth}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			Размер & Пузырызьком & Выбором & Вставками \\
+			\hline
+			100    & 1.593   & 0.385  & 0.846 \\ 
+			\hline
+			200    & 4.282   & 1.222  & 2.712 \\ 
+			\hline
+			300    & 8.852   & 2.752  & 6.107 \\ 
+			\hline
+			400    & 16.149  & 5.168  & 11.158 \\ 
+			\hline
+			500    & 26.238  & 8.211  & 18.214 \\ 
+			\hline
+			600    & 37.710  & 12.497 & 27.415 \\ 
+			\hline
+			700    & 56.895  & 17.294 & 35.378 \\ 
+			\hline
+			800    & 70.109  & 21.486 & 46.485 \\ 
+			\hline
+			900    & 90.155  & 27.484 & 59.614 \\ 
+			\hline
+			1000   & 111.702 & 33.503 & 73.877 \\ 
+			\hline
+		\end{tabular}
+		\end{threeparttable}
+    \end{center}
+\end{table}
+
+
+\begin{table}[h]
+	\begin{center}
+		\begin{threeparttable}
+		\captionsetup{justification=raggedleft,singlelinecheck=off}
+		\caption{Случайные данные}
+		\label{tbl:random}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			Размер & Пузырызьком & Выбором & Вставками \\
+			\hline
+			100    & 1.103  & 0.407  & 0.480 \\ 
+			\hline
+			200    & 3.189  & 1.270  & 1.387 \\ 
+			\hline
+			300    & 6.169  & 2.709  & 3.165 \\ 
+			\hline
+			400    & 11.057 & 5.123  & 5.892 \\ 
+			\hline
+			500    & 17.704 & 8.104  & 8.892 \\ 
+			\hline
+			600    & 26.190 & 12.312 & 13.278 \\ 
+			\hline
+			700    & 36.716 & 16.505 & 18.171 \\ 
+			\hline
+			800    & 49.156 & 21.466 & 23.009 \\ 
+			\hline
+			900    & 66.507 & 28.209 & 32.940 \\ 
+			\hline
+			1000   & 79.332 & 33.690 & 38.293 \\ 
+			\hline
+		\end{tabular}
+		\end{threeparttable}
+    \end{center}
+\end{table}
+
+
+\img{130mm}{graph_sorted}{Отсортированный массив}
+\clearpage
+\img{130mm}{graph_sorted_back}{Отсортированный в обратном порядке массив}
+\clearpage
+\img{130mm}{graph_random}{Случайный массив}
+
+\clearpage
+
+\section{Вывод}
+
+Алгоритм сортировки пузырьком оказался худшим на всех данныых. Сортировка выбором показала себя лучше всех на отсортированных в обратном порядке данных (на 1000 элементах примерно в 2 раза быстрее сортировки вставками и в 3 раза - сортировки пузырьком) и на рандомных данных (более чем в два раза быстрее сортировки пузырьком). При этом сортировка вставками несравнимо быстрее остальных алгоритмов при уже отсортированном массиве, так как в лучшем случае имеет трудоёмкость $Q(N)$.
+
+
+
+
+
+\chapter*{Заключение}
+\addcontentsline{toc}{chapter}{Заключение}
+
+В данной работе было рассмотрено три алгоритма сортировки: пузырёк, выбором и вставками. Был описан и реализован каждый каждый алгоритм. Также были показаны схемы работы алгоритмов и приведены тесты и сравнительный анализ алгоритмов.
+
+\begin{itemize}
+	\item изучены три алгоритма сортировки;
+	\item реализованы изученные алгоритмы;
+    \item произведен сравнительный анализ реализаций алгоритмов сортировки;
+	\item подготовлен отчет по лабораторной работе.
+\end{itemize}
+
+
+
+
+
+\begin{thebibliography}{3}
+\bibitem{bib1}
+Сортировка пузырьком  [Электронный ресурс]. Режим доступа: \url{https://kvodo.ru/puzyirkovaya-sortirovka.html} (дата обращения: 14.10.2021)
+\bibitem{bib2}
+Сортировка выбором  [Электронный ресурс]. Режим доступа: \url{https://kvodo.ru/sortirovka-vyiborom-2.html} (дата обращения: 14.10.2021)
+\bibitem{bib3}
+Сортировка вставками  [Электронный ресурс]. Режим доступа: \url{https://kvodo.ru/sortirovka-vstavkami-2.html} (дата обращения: 14.10.2021)
+\bibitem{bib4}
+Кормен Т. Лейзерсон Ч. Риверст Р. Штайн К. Алгоритмы: построение и анализ. -- М.: Вильямс, 2013. с. 1296.
+\bibitem{bib5}
+Кнут Д. Сортировка и поиск. -- М.: Вильямс, 2000. Т. 3 из Искусство программирования. с. 834.
+\end{thebibliography}
+
+
+\end{document}
