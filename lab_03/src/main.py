@@ -20,7 +20,7 @@ def input_option():
         option = -1
     
     if option < 0 or option > 4:
-        print("%s%s\nОжидался ввод целого чилово числа от 0 до 4 %s%s"
+        print("%s%s\nОжидался ввод целого числа от 0 до 4 %s%s"
             %(set_color, red, set_color, base_color))
 
     return option

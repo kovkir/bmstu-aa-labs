@@ -19,7 +19,7 @@ def input_command():
         command = -1
     
     if command < 0 or command > 5:
-        print("%s%s\nОжидался ввод целого чилово числа от 0 до 5 %s%s"
+        print("%s%s\nОжидался ввод целого числа от 0 до 5 %s%s"
             %(set_color, red, set_color, base_color))
         
     return command
